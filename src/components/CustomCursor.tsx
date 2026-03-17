@@ -2,48 +2,57 @@
 
 import { useEffect, useRef } from 'react';
 
-// Frames for the movement animation (ping-pong: 1→2→3→2→1→2→3...)
 const MOVE_FRAMES = ['/cursor1.png', '/cursor2.png', '/cursor3.png', '/cursor2.png'];
 const HOVER_FRAME = '/cursor-hover.png';
-const FRAME_INTERVAL = 110; // ms per frame while moving
-const STOP_DELAY = 180;    // ms of no movement before stopping animation
+const ALL_FRAMES = [...MOVE_FRAMES, HOVER_FRAME];
+const UNIQUE_FRAMES = ['/cursor1.png', '/cursor2.png', '/cursor3.png', HOVER_FRAME];
+
+const FRAME_INTERVAL = 110;
+const STOP_DELAY = 180;
 
 export default function CustomCursor() {
-  const cursorRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const imgRefs = useRef<(HTMLImageElement | null)[]>([]);
 
   useEffect(() => {
-    const cursor = cursorRef.current;
-    if (!cursor) return;
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
 
-    let targetX = -200;
-    let targetY = -200;
-    let currentX = -200;
-    let currentY = -200;
-    let velX = 0;
-    let velY = 0;
-    let prevX = -200;
-    let prevY = -200;
+    // Map frame src → img element index in UNIQUE_FRAMES
+    const srcToIdx: Record<string, number> = {};
+    UNIQUE_FRAMES.forEach((src, i) => { srcToIdx[src] = i; });
+
+    const showFrame = (src: string) => {
+      UNIQUE_FRAMES.forEach((s, i) => {
+        const img = imgRefs.current[i];
+        if (img) img.style.opacity = s === src ? '1' : '0';
+      });
+    };
+
+    let targetX = -200, targetY = -200;
+    let currentX = -200, currentY = -200;
+    let velX = 0, velY = 0;
+    let prevX = -200, prevY = -200;
     let rotation = 0;
     let rafId: number;
 
-    // Frame animation state
     let frameIndex = 0;
     let frameTimerId: ReturnType<typeof setTimeout> | null = null;
     let stopTimerId: ReturnType<typeof setTimeout> | null = null;
+    let leaveTimerId: ReturnType<typeof setTimeout> | null = null;
     let isHovered = false;
     let isAnimating = false;
+
+    // Show initial frame
+    showFrame(MOVE_FRAMES[0]);
 
     const startFrameLoop = () => {
       if (isAnimating || isHovered) return;
       isAnimating = true;
-
       const tick = () => {
-        if (isHovered || !isAnimating) {
-          isAnimating = false;
-          return;
-        }
+        if (isHovered || !isAnimating) { isAnimating = false; return; }
         frameIndex = (frameIndex + 1) % MOVE_FRAMES.length;
-        cursor.style.backgroundImage = `url(${MOVE_FRAMES[frameIndex]})`;
+        showFrame(MOVE_FRAMES[frameIndex]);
         frameTimerId = setTimeout(tick, FRAME_INTERVAL);
       };
       frameTimerId = setTimeout(tick, FRAME_INTERVAL);
@@ -52,30 +61,34 @@ export default function CustomCursor() {
     const stopFrameLoop = () => {
       isAnimating = false;
       if (frameTimerId) { clearTimeout(frameTimerId); frameTimerId = null; }
-      // Reset to first frame when stopped
       frameIndex = 0;
-      if (!isHovered) {
-        cursor.style.backgroundImage = `url(${MOVE_FRAMES[0]})`;
-      }
+      if (!isHovered) showFrame(MOVE_FRAMES[0]);
     };
 
-    const setHover = (val: boolean) => {
+    const applyHover = (val: boolean) => {
       if (val === isHovered) return;
       isHovered = val;
       if (val) {
         stopFrameLoop();
-        cursor.style.backgroundImage = `url(${HOVER_FRAME})`;
-        cursor.style.width = '60px';
-        cursor.style.height = '52px';
+        showFrame(HOVER_FRAME);
+        wrapper.style.width = '60px';
+        wrapper.style.height = '52px';
       } else {
-        cursor.style.backgroundImage = `url(${MOVE_FRAMES[frameIndex]})`;
-        cursor.style.width = '64px';
-        cursor.style.height = '56px';
+        showFrame(MOVE_FRAMES[frameIndex]);
+        wrapper.style.width = '64px';
+        wrapper.style.height = '56px';
       }
     };
 
-    const onCursorEnter = () => setHover(true);
-    const onCursorLeave = () => setHover(false);
+    const onCursorEnter = () => {
+      if (leaveTimerId) { clearTimeout(leaveTimerId); leaveTimerId = null; }
+      applyHover(true);
+    };
+
+    const onCursorLeave = () => {
+      if (leaveTimerId) clearTimeout(leaveTimerId);
+      leaveTimerId = setTimeout(() => applyHover(false), 40);
+    };
 
     const onMouseMove = (e: MouseEvent) => {
       velX = e.clientX - prevX;
@@ -85,39 +98,30 @@ export default function CustomCursor() {
       targetX = e.clientX;
       targetY = e.clientY;
 
-      // Detect hover state for standard interactive elements
       const el = (e.target as HTMLElement).closest('a, button');
       if (el) {
-        setHover(true);
+        if (leaveTimerId) { clearTimeout(leaveTimerId); leaveTimerId = null; }
+        applyHover(true);
       } else if (!(window as unknown as Record<string, unknown>).__cursorMediaHovered) {
-        setHover(false);
+        if (leaveTimerId) clearTimeout(leaveTimerId);
+        leaveTimerId = setTimeout(() => applyHover(false), 40);
       }
 
-      // Start animation on move (only when not hovered)
       if (!isHovered) startFrameLoop();
-
-      // Schedule stop after movement ceases
       if (stopTimerId) clearTimeout(stopTimerId);
       stopTimerId = setTimeout(stopFrameLoop, STOP_DELAY);
     };
 
     const animate = () => {
-      // Smooth follow with easing
       currentX += (targetX - currentX) * 0.13;
       currentY += (targetY - currentY) * 0.13;
-
-      // Tilt based on horizontal velocity, max ±18deg
       const targetRotation = Math.max(-18, Math.min(18, velX * 1.4));
       rotation += (targetRotation - rotation) * 0.1;
-
-      // Decay velocity
       velX *= 0.82;
       velY *= 0.82;
-
-      cursor.style.left = `${currentX}px`;
-      cursor.style.top = `${currentY}px`;
-      cursor.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
-
+      wrapper.style.left = `${currentX}px`;
+      wrapper.style.top = `${currentY}px`;
+      wrapper.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
       rafId = requestAnimationFrame(animate);
     };
 
@@ -133,28 +137,44 @@ export default function CustomCursor() {
       cancelAnimationFrame(rafId);
       if (frameTimerId) clearTimeout(frameTimerId);
       if (stopTimerId) clearTimeout(stopTimerId);
+      if (leaveTimerId) clearTimeout(leaveTimerId);
     };
   }, []);
 
   return (
     <div
-      ref={cursorRef}
+      ref={wrapperRef}
       style={{
         position: 'fixed',
         top: 0,
         left: 0,
         width: '64px',
         height: '56px',
-        backgroundImage: 'url(/cursor1.png)',
-        backgroundSize: 'contain',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
         pointerEvents: 'none',
         zIndex: 9999,
         transform: 'translate(-50%, -50%)',
         willChange: 'transform, left, top',
         transition: 'width 0.15s ease, height 0.15s ease',
       }}
-    />
+    >
+      {UNIQUE_FRAMES.map((src, i) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          key={src}
+          src={src}
+          alt=""
+          ref={el => { imgRefs.current[i] = el; }}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            opacity: 0,
+            pointerEvents: 'none',
+          }}
+        />
+      ))}
+    </div>
   );
 }
