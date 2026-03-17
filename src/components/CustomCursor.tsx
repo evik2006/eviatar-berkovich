@@ -4,11 +4,10 @@ import { useEffect, useRef } from 'react';
 
 const MOVE_FRAMES = ['/cursor1.png', '/cursor2.png', '/cursor3.png', '/cursor2.png'];
 const HOVER_FRAME = '/cursor-hover.png';
-const ALL_FRAMES = [...MOVE_FRAMES, HOVER_FRAME];
 const UNIQUE_FRAMES = ['/cursor1.png', '/cursor2.png', '/cursor3.png', HOVER_FRAME];
 
-const FRAME_INTERVAL = 110;
-const STOP_DELAY = 180;
+const FRAME_INTERVAL = 110; // ms per animation frame
+const STOP_DELAY = 180;     // ms of no movement before going idle
 
 export default function CustomCursor() {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -18,10 +17,6 @@ export default function CustomCursor() {
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
 
-    // Map frame src → img element index in UNIQUE_FRAMES
-    const srcToIdx: Record<string, number> = {};
-    UNIQUE_FRAMES.forEach((src, i) => { srcToIdx[src] = i; });
-
     const showFrame = (src: string) => {
       UNIQUE_FRAMES.forEach((s, i) => {
         const img = imgRefs.current[i];
@@ -29,47 +24,61 @@ export default function CustomCursor() {
       });
     };
 
+    // Position state
     let targetX = -200, targetY = -200;
     let currentX = -200, currentY = -200;
-    let velX = 0, velY = 0;
-    let prevX = -200, prevY = -200;
+    let velX = 0, prevX = -200;
     let rotation = 0;
+
+    // Frame state
+    let frameIndex = 0;
+    let lastFrameTime = 0;
+    let isMoving = false;
+    let isHovered = false;
+
+    // Timers
+    let stopMovingTimer: ReturnType<typeof setTimeout> | null = null;
+    let leaveTimerId: ReturnType<typeof setTimeout> | null = null;
     let rafId: number;
 
-    let frameIndex = 0;
-    let frameTimerId: ReturnType<typeof setTimeout> | null = null;
-    let stopTimerId: ReturnType<typeof setTimeout> | null = null;
-    let leaveTimerId: ReturnType<typeof setTimeout> | null = null;
-    let isHovered = false;
-    let isAnimating = false;
-
-    // Show initial frame
     showFrame(MOVE_FRAMES[0]);
 
-    const startFrameLoop = () => {
-      if (isAnimating || isHovered) return;
-      isAnimating = true;
-      const tick = () => {
-        if (isHovered || !isAnimating) { isAnimating = false; return; }
-        frameIndex = (frameIndex + 1) % MOVE_FRAMES.length;
-        showFrame(MOVE_FRAMES[frameIndex]);
-        frameTimerId = setTimeout(tick, FRAME_INTERVAL);
-      };
-      frameTimerId = setTimeout(tick, FRAME_INTERVAL);
+    // ── Single RAF loop ───────────────────────────────────────────────────────
+    const animate = (timestamp: number) => {
+      // Smooth position lerp
+      currentX += (targetX - currentX) * 0.13;
+      currentY += (targetY - currentY) * 0.13;
+      const targetRot = Math.max(-18, Math.min(18, velX * 1.4));
+      rotation += (targetRot - rotation) * 0.1;
+      velX *= 0.82;
+
+      wrapper.style.left = `${currentX}px`;
+      wrapper.style.top = `${currentY}px`;
+      wrapper.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+
+      // Frame cycling — only when not hovering
+      if (!isHovered) {
+        if (isMoving) {
+          if (timestamp - lastFrameTime >= FRAME_INTERVAL) {
+            frameIndex = (frameIndex + 1) % MOVE_FRAMES.length;
+            showFrame(MOVE_FRAMES[frameIndex]);
+            lastFrameTime = timestamp;
+          }
+        } else if (frameIndex !== 0) {
+          // Idle: snap back to rest frame
+          frameIndex = 0;
+          showFrame(MOVE_FRAMES[0]);
+        }
+      }
+
+      rafId = requestAnimationFrame(animate);
     };
 
-    const stopFrameLoop = () => {
-      isAnimating = false;
-      if (frameTimerId) { clearTimeout(frameTimerId); frameTimerId = null; }
-      frameIndex = 0;
-      if (!isHovered) showFrame(MOVE_FRAMES[0]);
-    };
-
+    // ── Hover helpers ─────────────────────────────────────────────────────────
     const applyHover = (val: boolean) => {
       if (val === isHovered) return;
       isHovered = val;
       if (val) {
-        stopFrameLoop();
         showFrame(HOVER_FRAME);
         wrapper.style.width = '60px';
         wrapper.style.height = '52px';
@@ -90,14 +99,14 @@ export default function CustomCursor() {
       leaveTimerId = setTimeout(() => applyHover(false), 40);
     };
 
+    // ── Mouse move ────────────────────────────────────────────────────────────
     const onMouseMove = (e: MouseEvent) => {
       velX = e.clientX - prevX;
-      velY = e.clientY - prevY;
       prevX = e.clientX;
-      prevY = e.clientY;
       targetX = e.clientX;
       targetY = e.clientY;
 
+      // Hover detection
       const el = (e.target as HTMLElement).closest('a, button');
       if (el) {
         if (leaveTimerId) { clearTimeout(leaveTimerId); leaveTimerId = null; }
@@ -107,36 +116,26 @@ export default function CustomCursor() {
         leaveTimerId = setTimeout(() => applyHover(false), 40);
       }
 
-      if (!isHovered) startFrameLoop();
-      if (stopTimerId) clearTimeout(stopTimerId);
-      stopTimerId = setTimeout(stopFrameLoop, STOP_DELAY);
+      // Mark as moving; reset frame timer when transitioning from idle
+      if (!isMoving) {
+        isMoving = true;
+        lastFrameTime = performance.now();
+      }
+      if (stopMovingTimer) clearTimeout(stopMovingTimer);
+      stopMovingTimer = setTimeout(() => { isMoving = false; }, STOP_DELAY);
     };
 
-    const animate = () => {
-      currentX += (targetX - currentX) * 0.13;
-      currentY += (targetY - currentY) * 0.13;
-      const targetRotation = Math.max(-18, Math.min(18, velX * 1.4));
-      rotation += (targetRotation - rotation) * 0.1;
-      velX *= 0.82;
-      velY *= 0.82;
-      wrapper.style.left = `${currentX}px`;
-      wrapper.style.top = `${currentY}px`;
-      wrapper.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
-      rafId = requestAnimationFrame(animate);
-    };
-
+    rafId = requestAnimationFrame(animate);
     window.addEventListener('mousemove', onMouseMove, { passive: true });
     window.addEventListener('cursor:enter', onCursorEnter);
     window.addEventListener('cursor:leave', onCursorLeave);
-    rafId = requestAnimationFrame(animate);
 
     return () => {
+      cancelAnimationFrame(rafId);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('cursor:enter', onCursorEnter);
       window.removeEventListener('cursor:leave', onCursorLeave);
-      cancelAnimationFrame(rafId);
-      if (frameTimerId) clearTimeout(frameTimerId);
-      if (stopTimerId) clearTimeout(stopTimerId);
+      if (stopMovingTimer) clearTimeout(stopMovingTimer);
       if (leaveTimerId) clearTimeout(leaveTimerId);
     };
   }, []);
