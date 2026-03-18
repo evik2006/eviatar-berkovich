@@ -38,7 +38,7 @@ export const musicVideos: VideoItem[] = [
     year: "2024",
     src: "",
     hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/3c24011f-03cb-4a76-a067-339979aadc22/playlist.m3u8",
-    thumb: "https://Eviatarstills2006.b-cdn.net/Screenshot%202026-03-17%20at%2023.23.29.png",
+    thumb: "https://vz-32dec38e-34a.b-cdn.net/3c24011f-03cb-4a76-a067-339979aadc22/thumbnail_83d7ef3b.jpg",
   },
   {
     id: 2,
