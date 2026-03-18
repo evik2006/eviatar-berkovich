@@ -361,7 +361,7 @@ export default function HomePage() {
                       onMouseLeave={() => setHoveredNav(null)}
                     >
                       {/* Above zone */}
-                      <div style={{ height: '84px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center' }}>
+                      <div className="hero-nav-sub-zone" style={{ height: '84px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'center' }}>
                         <AnimatePresence>
                           {hoveredNav === item.label && item.sub.slice(0, aboveCount).map((sub, i) => (
                             <motion.div key={sub.label} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 6 }} transition={{ duration: 0.2, delay: i * 0.04, ease: [0.215, 0.61, 0.355, 1] }}>
@@ -391,7 +391,7 @@ export default function HomePage() {
                       </motion.button>
 
                       {/* Below zone */}
-                      <div style={{ height: '84px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
+                      <div className="hero-nav-sub-zone" style={{ height: '84px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
                         <AnimatePresence>
                           {hoveredNav === item.label && item.sub.slice(aboveCount).map((sub, i) => (
                             <motion.div key={sub.label} initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.2, delay: i * 0.04, ease: [0.215, 0.61, 0.355, 1] }}>

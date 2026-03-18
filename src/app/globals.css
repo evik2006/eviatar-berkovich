@@ -42,12 +42,28 @@ a {
 
 /* ── Mobile layout fixes (≤ 767px) ── */
 @media (max-width: 767px) {
-  /* Hero nav: wrap items so nothing is clipped */
+  /* Hero nav: single row pinned below the animation */
   .hero-nav {
-    gap: 20px !important;
-    flex-wrap: wrap !important;
+    position: absolute !important;
+    bottom: 56px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
     justify-content: center !important;
-    padding: 0 20px !important;
+    gap: 14px !important;
+    flex-wrap: nowrap !important;
+    padding: 0 16px !important;
+  }
+
+  /* Hide hover sub-item zones (touch devices don't hover) */
+  .hero-nav-sub-zone {
+    display: none !important;
+  }
+
+  /* Shrink labels just enough for all four to fit one line */
+  .hero-nav button {
+    font-size: 9px !important;
+    letter-spacing: 0.12em !important;
   }
 
   /* Reduce large horizontal section padding */
