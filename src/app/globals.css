@@ -33,3 +33,46 @@ a {
 }
 
 /* cursor handled by CustomCursor component */
+
+/* ── Touch devices: restore default cursor ── */
+@media (pointer: coarse) {
+  body { cursor: auto; }
+  a, button { cursor: pointer; }
+}
+
+/* ── Mobile layout fixes (≤ 767px) ── */
+@media (max-width: 767px) {
+  /* Hero nav: wrap items so nothing is clipped */
+  .hero-nav {
+    gap: 20px !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    padding: 0 20px !important;
+  }
+
+  /* Reduce large horizontal section padding */
+  .content-section {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* Video grid → single column */
+  .video-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Stills masonry → single column */
+  .stills-grid {
+    columns: 1 !important;
+  }
+
+  /* Personal projects stills → single column */
+  .pp-stills-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Personal projects video masonry → single column */
+  .pp-videos-grid {
+    columns: 1 !important;
+  }
+}

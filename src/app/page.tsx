@@ -57,6 +57,7 @@ function VideoGrid({ items, onSelect }: { items: VideoItem[]; onSelect: (item: V
       whileInView="visible"
       viewport={{ once: true, amount: 0.08 }}
       variants={{ visible: { transition: { staggerChildren: 0.07 } } }}
+      className="video-grid"
       style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}
     >
       {items.map(item => (
@@ -104,6 +105,7 @@ function StillsGrid({ items, onSelect }: { items: StillItem[]; onSelect: (i: num
       whileInView="visible"
       viewport={{ once: true, amount: 0.08 }}
       variants={{ visible: { transition: { staggerChildren: 0.06 } } }}
+      className="stills-grid"
       style={{ columns: '3', columnGap: '12px' }}
     >
       {items.map((item, i) => (
@@ -346,7 +348,8 @@ export default function HomePage() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.35, ease: [0.215, 0.61, 0.355, 1] }}
-                style={{ position: 'relative', zIndex: 5, display: 'flex', alignItems: 'center', gap: '56px' }}
+                className="hero-nav"
+              style={{ position: 'relative', zIndex: 5, display: 'flex', alignItems: 'center', gap: '56px' }}
               >
                 {navItems.map((item) => {
                   const aboveCount = Math.ceil(item.sub.length / 2);
@@ -428,7 +431,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           VIDEO SECTION
       ═══════════════════════════════════════════════════════════ */}
-      <section id="video" style={{ padding: '128px 72px 96px', background: '#000000' }}>
+      <section id="video" className="content-section" style={{ padding: '128px 72px 96px', background: '#000000' }}>
         <SectionDivider label="VIDEO" />
 
         {/* Music Videos */}
@@ -453,7 +456,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           STILLS SECTION
       ═══════════════════════════════════════════════════════════ */}
-      <section id="stills" style={{ padding: '128px 72px 96px', background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+      <section id="stills" className="content-section" style={{ padding: '128px 72px 96px', background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
         <SectionDivider label="STILLS" />
 
         {/* Cover Art */}
@@ -472,12 +475,13 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           PERSONAL PROJECTS
       ═══════════════════════════════════════════════════════════ */}
-      <section id="personal-projects" style={{ padding: '128px 72px 96px', background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+      <section id="personal-projects" className="content-section" style={{ padding: '128px 72px 96px', background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
         <SubLabel>Personal Projects</SubLabel>
         {/* First 3 polaroids */}
         <motion.div
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.08 }}
           variants={{ visible: { transition: { staggerChildren: 0.06 } } }}
+          className="pp-stills-grid"
           style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '12px' }}
         >
           {personalProjectsStills.slice(0, 3).map((item, i) => (
@@ -504,6 +508,7 @@ export default function HomePage() {
         <motion.div
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.08 }}
           variants={{ visible: { transition: { staggerChildren: 0.06 } } }}
+          className="pp-videos-grid"
           style={{ columns: '3', columnGap: '12px', marginTop: '12px' }}
         >
           {personalProjectVideos.map((item) => (
@@ -541,6 +546,7 @@ export default function HomePage() {
         <motion.div
           initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.08 }}
           variants={{ visible: { transition: { staggerChildren: 0.06 } } }}
+          className="pp-stills-grid"
           style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginTop: '12px' }}
         >
           {personalProjectsStills.slice(3).map((item, i) => (
@@ -577,7 +583,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           ABOUT SECTION
       ═══════════════════════════════════════════════════════════ */}
-      <section id="about" style={{ padding: '128px 72px 128px', background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+      <section id="about" className="content-section" style={{ padding: '128px 72px 128px', background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
         <SubLabel>About</SubLabel>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start', maxWidth: '1100px', margin: '0 auto' }}>

@@ -14,6 +14,9 @@ export default function CustomCursor() {
   const imgRefs = useRef<(HTMLImageElement | null)[]>([]);
 
   useEffect(() => {
+    // Skip on touch / pointer-coarse devices (phones, tablets)
+    if (window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0) return;
+
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
 
