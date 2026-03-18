@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import {
   motion,
   useScroll,
@@ -194,6 +194,29 @@ export default function HomePage() {
     setLbOpen(true);
   }, []);
 
+  // ── Hero video: force autoplay on mobile ──
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    const tryPlay = () => {
+      if (video.paused) video.play().catch(() => {/* blocked by browser policy */});
+    };
+
+    tryPlay();
+    // Re-attempt on first touch (unlocks autoplay on some mobile browsers)
+    document.addEventListener('touchstart', tryPlay, { once: true });
+    // Re-attempt when tab becomes visible again
+    const onVisibility = () => { if (document.visibilityState === 'visible') tryPlay(); };
+    document.addEventListener('visibilitychange', onVisibility);
+
+    return () => {
+      document.removeEventListener('touchstart', tryPlay);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }, []);
+
   // Track scroll to switch nav mode
   useEffect(() => {
     const unsub = scrollY.on('change', (v) => {
@@ -321,9 +344,11 @@ export default function HomePage() {
           {/* Parallax video background */}
           <motion.div style={{ position: 'absolute', inset: 0, y: heroY, opacity: heroOpacity }}>
             <video
+              ref={heroVideoRef}
               src="/animation-logo.mp4"
               autoPlay muted loop playsInline
-              style={{ width: '100%', height: '100%', objectFit: 'contain', opacity: 0.9 }}
+              preload="auto"
+              style={{ width: '100%', height: '100%', objectFit: 'contain', opacity: 0.9, pointerEvents: 'none' }}
             />
           </motion.div>
 
