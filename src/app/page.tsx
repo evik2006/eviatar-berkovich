@@ -611,13 +611,21 @@ export default function HomePage() {
       <section id="about" className="content-section" style={{ padding: '128px 72px 128px', background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
         <SubLabel>About</SubLabel>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start', maxWidth: '1100px', margin: '0 auto' }}>
-          {/* Left: text */}
+        {/*
+          3-child grid so we can reorder on mobile:
+            desktop: [bio | image]   (image spans 2 rows)
+                     [links| image]
+            mobile:  bio → image → links  (single column, DOM order)
+        */}
+        <div className="about-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', maxWidth: '1100px', margin: '0 auto' }}>
+
+          {/* 1 — Name + bio  (desktop: col 1, row 1) */}
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.75, ease: [0.215, 0.61, 0.355, 1] }}
+            style={{ gridColumn: 1, gridRow: 1, alignSelf: 'start' }}
           >
             <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '48px', fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 1.05, color: '#FFFFFF', marginBottom: '6px' }}>
               EVIATAR<br />BERKOVICH
@@ -626,7 +634,7 @@ export default function HomePage() {
               Director &amp; Cinematographer
             </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '44px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', fontWeight: 300, lineHeight: 1.8, color: 'rgba(255,255,255,0.55)', maxWidth: '440px' }}>
                 Eviatar is a graduate of the Film Department at the Thelma Yellin High School of the Arts. At the age of 17, he launched his first independent live-session project. Since then, he has filmed and directed music videos for artists such as iogi, Gon Ben Ari, Maayan Linik, Daniel Rubin, and more. In 2024, he published his debut art book, featuring photography and texts in collaboration with various musicians. The book was celebrated with a special launch event at Beit Romano in Tel Aviv.
               </p>
@@ -635,10 +643,24 @@ export default function HomePage() {
                 Today, he continues to create projects that capture his unique visual perspective on the Israeli music scene.
               </p>
             </div>
+          </motion.div>
 
-            <div style={{ width: '32px', height: '1px', background: 'rgba(255,255,255,0.15)', marginBottom: '36px' }} />
+          {/* 2 — Portrait  (desktop: col 2, rows 1–2; mobile: between bio and links) */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            style={{ gridColumn: 2, gridRow: '1 / 3', position: 'relative', overflow: 'hidden', alignSelf: 'start' }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="https://Eviatarstills2006.b-cdn.net/about/DSC04516.jpg" alt="Eviatar Berkovich" style={{ width: '100%', display: 'block', filter: 'contrast(1.05) brightness(0.9)' }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.3) 0%, transparent 40%)', pointerEvents: 'none' }} />
+          </motion.div>
 
-            {/* Contact info */}
+          {/* 3 — Contact links  (desktop: col 1, row 2; mobile: after image) */}
+          <div style={{ gridColumn: 1, gridRow: 2, alignSelf: 'start' }}>
+            <div style={{ width: '32px', height: '1px', background: 'rgba(255,255,255,0.15)', marginBottom: '36px', marginTop: '44px' }} />
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {[
                 { label: 'EMAIL', value: 'dodly1111@gmail.com', href: 'mailto:dodly1111@gmail.com' },
@@ -662,20 +684,8 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          {/* Right: portrait placeholder */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            style={{ position: 'relative', overflow: 'hidden' }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="https://Eviatarstills2006.b-cdn.net/about/DSC04516.jpg" alt="Eviatar Berkovich" style={{ width: '100%', display: 'block', filter: 'contrast(1.05) brightness(0.9)' }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.3) 0%, transparent 40%)', pointerEvents: 'none' }} />
-          </motion.div>
         </div>
       </section>
 

@@ -91,4 +91,14 @@ a {
   .pp-videos-grid {
     columns: 1 !important;
   }
+
+  /* About: single column, reset explicit placement so DOM order takes over
+     (bio → image → contact links) */
+  .about-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .about-grid > * {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+  }
 }
