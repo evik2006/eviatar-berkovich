@@ -73,8 +73,7 @@ function VideoGrid({ items, onSelect }: { items: VideoItem[]; onSelect: (item: V
           onMouseLeave={() => { (window as unknown as Record<string, unknown>).__cursorMediaHovered = false; window.dispatchEvent(new Event('cursor:leave')); }}
           style={{ position: 'relative', cursor: 'none', overflow: 'hidden', background: '#080808' }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={item.thumb} alt={item.title} style={{ width: '100%', display: 'block', aspectRatio: '16/9', objectFit: 'cover', pointerEvents: 'none' }} />
+          <Image src={item.thumb} alt={item.title} width={640} height={360} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover', pointerEvents: 'none' }} />
           <motion.div
             variants={{ hovered: { opacity: 1 } }} initial={{ opacity: 0 }} transition={{ duration: 0.2 }}
             style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
@@ -121,8 +120,7 @@ function StillsGrid({ items, onSelect }: { items: StillItem[]; onSelect: (i: num
           onMouseLeave={() => { (window as unknown as Record<string, unknown>).__cursorMediaHovered = false; window.dispatchEvent(new Event('cursor:leave')); }}
           style={{ position: 'relative', cursor: 'none', overflow: 'hidden', marginBottom: '12px', breakInside: 'avoid', background: '#080808' }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={item.src} alt={item.title} style={{ width: '100%', display: 'block', objectFit: 'cover', pointerEvents: 'none' }} />
+          <Image src={item.src} alt={item.title} width={800} height={600} sizes="(max-width: 768px) 50vw, 33vw" style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover', pointerEvents: 'none' }} />
           <motion.div
             variants={{ hovered: { opacity: 1 } }} initial={{ opacity: 0 }} transition={{ duration: 0.2 }}
             style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '20px 12px 12px', background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)' }}
@@ -519,8 +517,7 @@ export default function HomePage() {
               onMouseLeave={() => { (window as unknown as Record<string, unknown>).__cursorMediaHovered = false; window.dispatchEvent(new Event('cursor:leave')); }}
               style={{ position: 'relative', cursor: 'none', overflow: 'hidden', background: '#080808' }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={item.src} alt={item.title} style={{ width: '100%', display: 'block', objectFit: 'cover', pointerEvents: 'none' }} />
+              <Image src={item.src} alt={item.title} width={800} height={600} sizes="(max-width: 768px) 50vw, 33vw" style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover', pointerEvents: 'none' }} />
               <motion.div variants={{ hovered: { opacity: 1 } }} initial={{ opacity: 0 }} transition={{ duration: 0.2 }} style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '20px 12px 12px', background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)' }}>
                 <p style={{ fontFamily: 'var(--font-heading)', fontSize: '10px', letterSpacing: '0.12em', color: '#fff', textTransform: 'uppercase' }}>{item.title}</p>
                 <p style={{ fontFamily: 'var(--font-body)', fontSize: '9px', color: 'rgba(255,255,255,0.4)', marginTop: '2px' }}>{item.subtitle}</p>
@@ -546,8 +543,7 @@ export default function HomePage() {
               onMouseLeave={() => { (window as unknown as Record<string, unknown>).__cursorMediaHovered = false; window.dispatchEvent(new Event('cursor:leave')); }}
               style={{ position: 'relative', cursor: 'none', overflow: 'hidden', marginBottom: '12px', breakInside: 'avoid', background: '#080808' }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={item.thumb} alt={item.title} style={{ width: '100%', display: 'block', objectFit: 'cover', pointerEvents: 'none' }} />
+              <Image src={item.thumb} alt={item.title} width={640} height={360} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover', pointerEvents: 'none' }} />
               <motion.div
                 variants={{ hovered: { opacity: 1 } }} initial={{ opacity: 0 }} transition={{ duration: 0.2 }}
                 style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
@@ -584,8 +580,7 @@ export default function HomePage() {
               onMouseLeave={() => { (window as unknown as Record<string, unknown>).__cursorMediaHovered = false; window.dispatchEvent(new Event('cursor:leave')); }}
               style={{ position: 'relative', cursor: 'none', overflow: 'hidden', background: '#080808' }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={item.src} alt={item.title} style={{ width: '100%', display: 'block', objectFit: 'cover', pointerEvents: 'none' }} />
+              <Image src={item.src} alt={item.title} width={800} height={600} sizes="(max-width: 768px) 50vw, 33vw" style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover', pointerEvents: 'none' }} />
               <motion.div variants={{ hovered: { opacity: 1 } }} initial={{ opacity: 0 }} transition={{ duration: 0.2 }} style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '20px 12px 12px', background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)' }}>
                 <p style={{ fontFamily: 'var(--font-heading)', fontSize: '10px', letterSpacing: '0.12em', color: '#fff', textTransform: 'uppercase' }}>{item.title}</p>
                 <p style={{ fontFamily: 'var(--font-body)', fontSize: '9px', color: 'rgba(255,255,255,0.4)', marginTop: '2px' }}>{item.subtitle}</p>
@@ -653,8 +648,7 @@ export default function HomePage() {
             transition={{ duration: 1, delay: 0.2 }}
             style={{ gridColumn: 2, gridRow: '1 / 3', position: 'relative', overflow: 'hidden', alignSelf: 'start' }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="https://Eviatarstills2006.b-cdn.net/about/DSC04516.jpg" alt="Eviatar Berkovich" style={{ width: '100%', display: 'block', filter: 'contrast(1.05) brightness(0.9)' }} />
+            <Image src="https://Eviatarstills2006.b-cdn.net/about/DSC04516.jpg" alt="Eviatar Berkovich" width={800} height={1000} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: 'auto', display: 'block', filter: 'contrast(1.05) brightness(0.9)' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.3) 0%, transparent 40%)', pointerEvents: 'none' }} />
           </motion.div>
 
