@@ -118,15 +118,6 @@ export const liveSessions: VideoItem[] = [
     thumb: "https://vz-32dec38e-34a.b-cdn.net/5013b261-abc7-44f9-b0b7-aa8a643db38b/thumbnail_33199ed5.jpg",
   },
   {
-    id: 2,
-    title: "POGEA, LO YODEA",
-    artist: "OLLIE DANON",
-    year: "2025",
-    src: "",
-    hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/e5b0a2e0-181c-47dc-8e43-6b60b6690586/playlist.m3u8",
-    thumb: "https://vz-32dec38e-34a.b-cdn.net/e5b0a2e0-181c-47dc-8e43-6b60b6690586/thumbnail_5bdad9c8.jpg",
-  },
-  {
     id: 3,
     title: "HASHEVER HASURI-AFRIKANI",
     artist: "OLLIE DANON",
@@ -134,15 +125,6 @@ export const liveSessions: VideoItem[] = [
     src: "",
     hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/2fa809b3-4762-4aa8-bedb-d54fe0f17847/playlist.m3u8",
     thumb: "https://vz-32dec38e-34a.b-cdn.net/2fa809b3-4762-4aa8-bedb-d54fe0f17847/thumbnail_475028aa.jpg",
-  },
-  {
-    id: 4,
-    title: "SHIRIMEAETMOL",
-    artist: "OLLIE DANON",
-    year: "2025",
-    src: "",
-    hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/24fe0964-0686-4e8d-85b3-5134c23114ef/playlist.m3u8",
-    thumb: "https://vz-32dec38e-34a.b-cdn.net/24fe0964-0686-4e8d-85b3-5134c23114ef/thumbnail_49151ce7.jpg",
   },
   {
     id: 13,
@@ -215,15 +197,6 @@ export const liveSessions: VideoItem[] = [
     src: "",
     hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/33c6c667-0fd8-4b3f-bc68-7bdda3882685/playlist.m3u8",
     thumb: "https://vz-32dec38e-34a.b-cdn.net/33c6c667-0fd8-4b3f-bc68-7bdda3882685/thumbnail_78a5c7cb.jpg",
-  },
-  {
-    id: 11,
-    title: "BETOH HAYAAR",
-    artist: "EREL LEV",
-    year: "2025",
-    src: "",
-    hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/e93a1bfc-b8b7-4ab5-ab3b-ae1dba365d35/playlist.m3u8",
-    thumb: "https://vz-32dec38e-34a.b-cdn.net/e93a1bfc-b8b7-4ab5-ab3b-ae1dba365d35/thumbnail_1cb5841d.jpg",
   },
   {
     id: 12,
