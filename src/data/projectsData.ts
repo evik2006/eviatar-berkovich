@@ -77,15 +77,6 @@ export const musicVideos: VideoItem[] = [
     thumb: "https://vz-32dec38e-34a.b-cdn.net/8ebee153-191d-4c11-9562-febe094a8eeb/thumbnail_d3e9ba3b.jpg",
   },
   {
-    id: 11,
-    title: "GRATITUDE",
-    artist: "ZAFIO",
-    year: "2026",
-    src: "",
-    hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/cf59a731-2832-48e6-9871-796deca8605d/playlist.m3u8",
-    thumb: "https://vz-32dec38e-34a.b-cdn.net/cf59a731-2832-48e6-9871-796deca8605d/thumbnail_b9cc9e82.jpg",
-  },
-  {
     id: 9,
     title: "BYE DAI",
     artist: "LIHI AM",
