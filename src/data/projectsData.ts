@@ -68,6 +68,15 @@ export const musicVideos: VideoItem[] = [
     thumb: "https://vz-32dec38e-34a.b-cdn.net/8ebee153-191d-4c11-9562-febe094a8eeb/thumbnail_d3e9ba3b.jpg",
   },
   {
+    id: 9,
+    title: "BYE DAI",
+    artist: "LIHI AM",
+    year: "2026",
+    src: "",
+    hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/093f4669-1615-47f0-8009-6c9fe7f80234/playlist.m3u8",
+    thumb: "https://vz-32dec38e-34a.b-cdn.net/093f4669-1615-47f0-8009-6c9fe7f80234/thumbnail_eaf3d140.jpg",
+  },
+  {
     id: 4,
     title: "VEM TAVO ELI",
     artist: "MAAYAN LINIK",
