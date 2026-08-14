@@ -103,24 +103,6 @@ export const musicVideos: VideoItem[] = [
     hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/4addc355-3ab9-4e2b-92cc-4564ec93d5cb/playlist.m3u8",
     thumb: "https://vz-32dec38e-34a.b-cdn.net/4addc355-3ab9-4e2b-92cc-4564ec93d5cb/thumbnail_cda96df8.jpg",
   },
-  {
-    id: 6,
-    title: "OD SHNIA",
-    artist: "SHLEVTZY",
-    year: "2025",
-    src: "",
-    hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/f5cb7716-722f-4bf8-baa4-c451b399de35/playlist.m3u8",
-    thumb: "https://vz-32dec38e-34a.b-cdn.net/f5cb7716-722f-4bf8-baa4-c451b399de35/thumbnail_9265aaac.jpg",
-  },
-  {
-    id: 7,
-    title: "MANGINA",
-    artist: "ROE ITON",
-    year: "2024",
-    src: "",
-    hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/29ff1eb5-c30b-4b7e-9281-caa266329625/playlist.m3u8",
-    thumb: "https://vz-32dec38e-34a.b-cdn.net/29ff1eb5-c30b-4b7e-9281-caa266329625/thumbnail.jpg",
-  },
 ];
 
 // ─── Live Sessions ────────────────────────────────────────────────────────────
