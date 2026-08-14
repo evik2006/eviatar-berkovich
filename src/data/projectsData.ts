@@ -77,6 +77,15 @@ export const musicVideos: VideoItem[] = [
     thumb: "https://vz-32dec38e-34a.b-cdn.net/8ebee153-191d-4c11-9562-febe094a8eeb/thumbnail_d3e9ba3b.jpg",
   },
   {
+    id: 11,
+    title: "GRATITUDE",
+    artist: "ZAFIO",
+    year: "2026",
+    src: "",
+    hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/cf59a731-2832-48e6-9871-796deca8605d/playlist.m3u8",
+    thumb: "https://vz-32dec38e-34a.b-cdn.net/cf59a731-2832-48e6-9871-796deca8605d/thumbnail_b9cc9e82.jpg",
+  },
+  {
     id: 9,
     title: "BYE DAI",
     artist: "LIHI AM",
@@ -152,6 +161,15 @@ export const liveSessions: VideoItem[] = [
     src: "",
     hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/e3001293-937f-4b00-a34e-0297f15019c0/playlist.m3u8",
     thumb: "https://vz-32dec38e-34a.b-cdn.net/e3001293-937f-4b00-a34e-0297f15019c0/thumbnail_4c447a57.jpg",
+  },
+  {
+    id: 14,
+    title: "GRATITUDE",
+    artist: "ZAFIO",
+    year: "2026",
+    src: "",
+    hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/cf59a731-2832-48e6-9871-796deca8605d/playlist.m3u8",
+    thumb: "https://vz-32dec38e-34a.b-cdn.net/cf59a731-2832-48e6-9871-796deca8605d/thumbnail_b9cc9e82.jpg",
   },
   {
     id: 5,
