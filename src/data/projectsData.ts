@@ -145,6 +145,15 @@ export const liveSessions: VideoItem[] = [
     thumb: "https://vz-32dec38e-34a.b-cdn.net/24fe0964-0686-4e8d-85b3-5134c23114ef/thumbnail_49151ce7.jpg",
   },
   {
+    id: 13,
+    title: "VIDEOGAME",
+    artist: "DANNY KUTTNER",
+    year: "2026",
+    src: "",
+    hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/e3001293-937f-4b00-a34e-0297f15019c0/playlist.m3u8",
+    thumb: "https://vz-32dec38e-34a.b-cdn.net/e3001293-937f-4b00-a34e-0297f15019c0/thumbnail_4c447a57.jpg",
+  },
+  {
     id: 5,
     title: "LEHAAMIN",
     artist: "DANIEL RUBIN & CILL PILL",
