@@ -59,6 +59,15 @@ export const musicVideos: VideoItem[] = [
     thumb: "https://vz-32dec38e-34a.b-cdn.net/be6d8b93-2d96-45ef-ab4d-2145dc76d06f/thumbnail_2c1e843e.jpg",
   },
   {
+    id: 10,
+    title: "KADURIM VE TFILOT",
+    artist: "FRED",
+    year: "2026",
+    src: "",
+    hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/26b4801f-73ef-447d-abeb-b1390d030c49/playlist.m3u8",
+    thumb: "https://vz-32dec38e-34a.b-cdn.net/26b4801f-73ef-447d-abeb-b1390d030c49/thumbnail_784362c3.jpg",
+  },
+  {
     id: 3,
     title: "SHUV",
     artist: "NESHAMA",
