@@ -32,6 +32,15 @@ export type PortraitProject = {
 
 export const musicVideos: VideoItem[] = [
   {
+    id: 8,
+    title: "SEX AND BOMBS",
+    artist: "HAREL BASHARY",
+    year: "2026",
+    src: "",
+    hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/d1f18287-bbdf-4a0d-858b-338aba65c540/playlist.m3u8",
+    thumb: "https://vz-32dec38e-34a.b-cdn.net/d1f18287-bbdf-4a0d-858b-338aba65c540/thumbnail_12af86e3.jpg",
+  },
+  {
     id: 1,
     title: "MECHORATI",
     artist: "OLLIE DANON",
