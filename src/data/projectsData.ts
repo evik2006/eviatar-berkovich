@@ -249,6 +249,15 @@ export const socialContent: VideoItem[] = [
     thumb: "https://vz-32dec38e-34a.b-cdn.net/c62fa17f-4503-4df2-a823-2dffe4953322/thumbnail_9da40bdb.jpg",
   },
   {
+    id: 8,
+    title: "MAYBE IT'S JUST ME",
+    artist: "SRULIK",
+    year: "2026",
+    src: "",
+    hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/c7450e73-a3e1-4b4b-9bab-70b7383da8bf/playlist.m3u8",
+    thumb: "https://vz-32dec38e-34a.b-cdn.net/c7450e73-a3e1-4b4b-9bab-70b7383da8bf/thumbnail_5025db3c.jpg",
+  },
+  {
     id: 5,
     title: "EXHIBITION",
     artist: "GADI ZEDER",
@@ -265,15 +274,6 @@ export const socialContent: VideoItem[] = [
     src: "",
     hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/674ddbce-4c8d-4b5c-a617-dbed69eca644/playlist.m3u8",
     thumb: "https://vz-32dec38e-34a.b-cdn.net/674ddbce-4c8d-4b5c-a617-dbed69eca644/thumbnail_a591f280.jpg",
-  },
-  {
-    id: 8,
-    title: "MAYBE IT'S JUST ME",
-    artist: "SRULIK",
-    year: "2026",
-    src: "",
-    hlsSrc: "https://vz-32dec38e-34a.b-cdn.net/c7450e73-a3e1-4b4b-9bab-70b7383da8bf/playlist.m3u8",
-    thumb: "https://vz-32dec38e-34a.b-cdn.net/c7450e73-a3e1-4b4b-9bab-70b7383da8bf/thumbnail_5025db3c.jpg",
   },
   {
     id: 7,
