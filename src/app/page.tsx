@@ -97,7 +97,13 @@ function VideoGrid({ items, onSelect }: { items: VideoItem[]; onSelect: (item: V
 
 // ─── STILLS GRID ─────────────────────────────────────────────────────────────
 
-function StillsGrid({ items, onSelect }: { items: StillItem[]; onSelect: (i: number) => void }) {
+function StillsGrid({ items, onSelect, layout = 'masonry' }: { items: StillItem[]; onSelect: (i: number) => void; layout?: 'masonry' | 'grid' }) {
+  const containerStyle = layout === 'grid'
+    ? { display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }
+    : { columns: '3', columnGap: '12px' };
+  const itemStyle = layout === 'grid'
+    ? { position: 'relative' as const, cursor: 'none', overflow: 'hidden', background: '#080808' }
+    : { position: 'relative' as const, cursor: 'none', overflow: 'hidden', marginBottom: '12px', breakInside: 'avoid' as const, background: '#080808' };
   return (
     <motion.div
       initial="hidden"
@@ -105,7 +111,7 @@ function StillsGrid({ items, onSelect }: { items: StillItem[]; onSelect: (i: num
       viewport={{ once: true, amount: 0.08 }}
       variants={{ visible: { transition: { staggerChildren: 0.06 } } }}
       className="stills-grid"
-      style={{ columns: '3', columnGap: '12px' }}
+      style={containerStyle}
     >
       {items.map((item, i) => (
         <motion.div
@@ -118,7 +124,7 @@ function StillsGrid({ items, onSelect }: { items: StillItem[]; onSelect: (i: num
           onClick={() => onSelect(i)}
           onMouseEnter={() => { (window as unknown as Record<string, unknown>).__cursorMediaHovered = true; window.dispatchEvent(new Event('cursor:enter')); }}
           onMouseLeave={() => { (window as unknown as Record<string, unknown>).__cursorMediaHovered = false; window.dispatchEvent(new Event('cursor:leave')); }}
-          style={{ position: 'relative', cursor: 'none', overflow: 'hidden', marginBottom: '12px', breakInside: 'avoid', background: '#080808' }}
+          style={itemStyle}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={item.src} alt={item.title} loading="lazy" decoding="async" style={{ width: '100%', display: 'block', objectFit: 'cover', pointerEvents: 'none' }} />
@@ -486,7 +492,7 @@ export default function HomePage() {
         {/* Cover Art */}
         <div id="cover-art" style={{ marginBottom: '96px' }}>
           <SubLabel>Cover Art</SubLabel>
-          <StillsGrid items={coverArt} onSelect={(i) => openLightbox(coverArt, i)} />
+          <StillsGrid items={coverArt} onSelect={(i) => openLightbox(coverArt, i)} layout="grid" />
         </div>
 
         {/* Portraits */}
