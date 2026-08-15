@@ -51,6 +51,13 @@ function scrollTo(anchor: string) {
   if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
 
+// Mobile browsers fire synthetic hover events on first tap, which would
+// otherwise pop a subcategory menu open before the click/nav actually lands.
+// Gate hover-triggered menus so mobile taps always navigate immediately.
+function isMobileViewport() {
+  return typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
+}
+
 // ─── VIDEO GRID ───────────────────────────────────────────────────────────────
 
 function VideoGrid({ items, onSelect }: { items: VideoItem[]; onSelect: (item: VideoItem) => void }) {
@@ -304,7 +311,7 @@ export default function HomePage() {
                 {navItems.map((item) => (
                   <div
                     key={item.label}
-                    onMouseEnter={() => item.sub.length > 0 && setHoveredNav(item.label)}
+                    onMouseEnter={() => !isMobileViewport() && item.sub.length > 0 && setHoveredNav(item.label)}
                     onMouseLeave={() => setHoveredNav(null)}
                     style={{ marginBottom: '10px' }}
                   >
@@ -418,7 +425,7 @@ export default function HomePage() {
                     <div
                       key={item.label}
                       style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-                      onMouseEnter={() => item.sub.length > 0 && setHoveredNav(item.label)}
+                      onMouseEnter={() => !isMobileViewport() && item.sub.length > 0 && setHoveredNav(item.label)}
                       onMouseLeave={() => setHoveredNav(null)}
                     >
                       {/* Above zone */}
@@ -492,7 +499,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           VIDEO SECTION
       ═══════════════════════════════════════════════════════════ */}
-      <section id="video" className="content-section" style={{ padding: `128px 72px 96px ${navSize.width + 72}px`, background: '#000000' }}>
+      <section id="video" className="content-section" style={{ padding: `128px 40px 96px ${navSize.width + 40}px`, background: '#000000' }}>
         <SectionDivider label="VIDEO" />
 
         {/* Music Videos */}
@@ -517,7 +524,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           STILLS SECTION
       ═══════════════════════════════════════════════════════════ */}
-      <section id="stills" className="content-section" style={{ padding: `128px 72px 96px ${navSize.width + 72}px`, background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+      <section id="stills" className="content-section" style={{ padding: `128px 40px 96px ${navSize.width + 40}px`, background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
         <SectionDivider label="STILLS" />
 
         {/* Cover Art */}
@@ -536,7 +543,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           PERSONAL PROJECTS
       ═══════════════════════════════════════════════════════════ */}
-      <section id="personal-projects" className="content-section" style={{ padding: `128px 72px 96px ${navSize.width + 72}px`, background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+      <section id="personal-projects" className="content-section" style={{ padding: `128px 40px 96px ${navSize.width + 40}px`, background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
         <SubLabel>Personal Projects</SubLabel>
         {/* First 3 polaroids */}
         <motion.div
@@ -644,7 +651,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           ABOUT SECTION
       ═══════════════════════════════════════════════════════════ */}
-      <section id="about" className="content-section" style={{ padding: `128px 72px 128px ${navSize.width + 72}px`, background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+      <section id="about" className="content-section" style={{ padding: `128px 40px 128px ${navSize.width + 40}px`, background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
         <SubLabel>About</SubLabel>
 
         {/*
