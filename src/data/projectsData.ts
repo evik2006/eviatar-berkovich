@@ -289,20 +289,15 @@ export const socialContent: VideoItem[] = [
 // ─── Cover Art ────────────────────────────────────────────────────────────────
 
 export const coverArt: StillItem[] = [
+  { title: "OLLIE DANON - 'HASHEVER HASURI-AFRIKAI'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/OLLIE%20DANON/IMG_6205.PNG' },
+  { title: "OLLIE DANON - 'SHIRIMEAETMOL'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/OLLIE%20DANON/IMG_6201.JPG' },
+  { title: "OLLIE DANON - 'MEHORATI'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/OLLIE%20DANON/IMG_6203.JPG' },
+  { title: "HELEL SANDMAN - 'MEHUSIN'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/HELEL%20SANDMAN/%D7%A7%D7%90%D7%91%D7%A8%20%D7%9E%D7%9B%D7%95%D7%A1%D7%99%D7%9D.png' },
+  { title: "HELEL SANDMAN - 'DIZINGOF'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/HELEL%20SANDMAN/%D7%A7%D7%90%D7%91%D7%A8%20%D7%93%D7%99%D7%96%D7%A0%D7%92%D7%95%D7%A3.png' },
+  { title: "HELEL SANDMAN - 'TOFESET'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/HELEL%20SANDMAN/%D7%A7%D7%90%D7%91%D7%A8%20%D7%AA%D7%95%D7%A4%D7%A1%D7%AA.png' },
   { title: "BNAYA SHANANI - 'LOTO'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/BNAYA%20SHANANI/2025_Bnaya%20Shanani_V05.jpg' },
   { title: "DANIEL IZHAKI - 'NISHAR BAAVIR'", subtitle: '2024', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/DANIEL%20IZHAKY/000006440006.jpg' },
   { title: "EREL LEV - 'A E H ?'", subtitle: '2023', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/EREL%20LEV1/IMG_1395.JPG' },
-  { title: "EREL LEV - 'MEAL HAANANIM'", subtitle: '2024', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/EREL%20LEV2/IMG_3299.JPG' },
-  { title: "HELEL SANDMAN - 'KAROV'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/HELEL%20SANDMAN/%D7%A7%D7%90%D7%91%D7%A8%20%D7%90%D7%9C%D7%91%D7%95%D7%9D.PNG' },
-  { title: "HELEL SANDMAN - 'DIZINGOF'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/HELEL%20SANDMAN/%D7%A7%D7%90%D7%91%D7%A8%20%D7%93%D7%99%D7%96%D7%A0%D7%92%D7%95%D7%A3.png' },
-  { title: "HELEL SANDMAN - 'MEHUSIN'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/HELEL%20SANDMAN/%D7%A7%D7%90%D7%91%D7%A8%20%D7%9E%D7%9B%D7%95%D7%A1%D7%99%D7%9D.png' },
-  { title: "HELEL SANDMAN - 'TOFESET'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/HELEL%20SANDMAN/%D7%A7%D7%90%D7%91%D7%A8%20%D7%AA%D7%95%D7%A4%D7%A1%D7%AA.png' },
-  { title: "ITAY DALUMI - 'SHIR HAYONA'", subtitle: '2026', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/ITAY%20DALUMI/%D7%A9%D7%99%D7%A8%20%D7%94%D7%99%D7%95%D7%A0%D7%94-%20NMC%20(2400%20x%202400%20%D7%A4%D7%99%D7%A7%D7%A1%D7%9C)%20(3).PNG' },
-  { title: 'NETTA ANDORN', subtitle: '2023', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/NETTA%20ANDORN/FullSizeRender.jpg' },
-  { title: "OLLIE DANON - 'HASHEVER HASURI-AFRIKAI'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/OLLIE%20DANON/IMG_6205.PNG' },
-  { title: "OLLIE DANON - 'HASHEVER HASURI-AFRIKAI'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/OLLIE%20DANON/IMG_6202.JPG' },
-  { title: "OLLIE DANON - 'SHIRIMEAETMOL'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/OLLIE%20DANON/IMG_6201.JPG' },
-  { title: "OLLIE DANON - 'MEHORATI'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/OLLIE%20DANON/IMG_6203.JPG' },
 ];
 
 // ─── Portraits ────────────────────────────────────────────────────────────────
