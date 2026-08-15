@@ -255,8 +255,11 @@ export default function HomePage() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.35, ease: [0.215, 0.61, 0.355, 1] }}
               style={{
-                position: 'fixed', top: '28px', left: '32px', zIndex: 100,
+                position: 'fixed', top: 0, left: 0, bottom: 0, zIndex: 100,
                 display: 'flex', flexDirection: 'column',
+                background: '#000000', padding: '28px 36px 28px 32px',
+                boxShadow: '1px 0 0 rgba(255,255,255,0.06)',
+                overflowY: 'auto',
               }}
             >
               {/* Small logo */}
@@ -283,8 +286,8 @@ export default function HomePage() {
                     layoutId={`nav-label-${item.label}`}
                     onClick={() => scrollTo(item.anchor)}
                     style={{
-                      fontFamily: 'var(--font-heading)', fontSize: '10px', fontWeight: 400,
-                      letterSpacing: '0.22em', color: '#FFFFFF', textTransform: 'uppercase',
+                      fontFamily: 'var(--font-heading)', fontSize: '14px', fontWeight: 400,
+                      letterSpacing: '0.18em', color: '#FFFFFF', textTransform: 'uppercase',
                       cursor: 'none', background: 'none', border: 'none', padding: '4px 0',
                       display: 'block', textAlign: 'left', whiteSpace: 'nowrap',
                       opacity: hoveredNav && hoveredNav !== item.label ? 0.35 : 1,
