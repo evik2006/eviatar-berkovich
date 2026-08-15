@@ -40,6 +40,11 @@ const navItems = [
   { label: 'ABOUT', anchor: 'about', sub: [] },
 ];
 
+// Fixed width of the sticky sidebar nav — content sections are offset by this
+// amount (desktop only; mobile resets padding-left via globals.css) so the
+// solid black column never sits on top of page content.
+const SIDEBAR_WIDTH = 260;
+
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 
 function scrollTo(anchor: string) {
@@ -255,7 +260,7 @@ export default function HomePage() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.35, ease: [0.215, 0.61, 0.355, 1] }}
               style={{
-                position: 'fixed', top: 0, left: 0, bottom: 0, zIndex: 100,
+                position: 'fixed', top: 0, left: 0, bottom: 0, width: `${SIDEBAR_WIDTH}px`, zIndex: 100,
                 display: 'flex', flexDirection: 'column',
                 background: '#000000', padding: '28px 36px 28px 32px',
                 boxShadow: '1px 0 0 rgba(255,255,255,0.06)',
@@ -464,7 +469,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           VIDEO SECTION
       ═══════════════════════════════════════════════════════════ */}
-      <section id="video" className="content-section" style={{ padding: '128px 72px 96px', background: '#000000' }}>
+      <section id="video" className="content-section" style={{ padding: `128px 72px 96px ${SIDEBAR_WIDTH + 72}px`, background: '#000000' }}>
         <SectionDivider label="VIDEO" />
 
         {/* Music Videos */}
@@ -489,7 +494,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           STILLS SECTION
       ═══════════════════════════════════════════════════════════ */}
-      <section id="stills" className="content-section" style={{ padding: '128px 72px 96px', background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+      <section id="stills" className="content-section" style={{ padding: `128px 72px 96px ${SIDEBAR_WIDTH + 72}px`, background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
         <SectionDivider label="STILLS" />
 
         {/* Cover Art */}
@@ -508,7 +513,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           PERSONAL PROJECTS
       ═══════════════════════════════════════════════════════════ */}
-      <section id="personal-projects" className="content-section" style={{ padding: '128px 72px 96px', background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+      <section id="personal-projects" className="content-section" style={{ padding: `128px 72px 96px ${SIDEBAR_WIDTH + 72}px`, background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
         <SubLabel>Personal Projects</SubLabel>
         {/* First 3 polaroids */}
         <motion.div
@@ -616,7 +621,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           ABOUT SECTION
       ═══════════════════════════════════════════════════════════ */}
-      <section id="about" className="content-section" style={{ padding: '128px 72px 128px', background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+      <section id="about" className="content-section" style={{ padding: `128px 72px 128px ${SIDEBAR_WIDTH + 72}px`, background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
         <SubLabel>About</SubLabel>
 
         {/*
