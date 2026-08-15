@@ -66,10 +66,49 @@ a {
     letter-spacing: 0.12em !important;
   }
 
-  /* Reduce large horizontal section padding */
+  /* Reduce large horizontal section padding; clear the top nav bar
+     instead of the desktop sidebar's left offset */
   .content-section {
     padding-left: 20px !important;
     padding-right: 20px !important;
+    padding-top: calc(var(--mobile-nav-height, 160px) + 24px) !important;
+  }
+
+  /* Sticky sidebar → horizontal top bar below the logo */
+  .sticky-sidebar-nav {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: 70vh !important;
+    padding: 16px 20px !important;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.06) !important;
+  }
+  .sticky-sidebar-nav img {
+    width: 56px !important;
+    height: 56px !important;
+  }
+  .sticky-sidebar-nav > div:first-child {
+    margin-bottom: 12px !important;
+  }
+
+  /* Category labels lay out horizontally, wrapping to a second line */
+  .sticky-nav-items {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    column-gap: 20px !important;
+    row-gap: 8px !important;
+  }
+  .sticky-nav-items > div {
+    margin-bottom: 0 !important;
+  }
+  .sticky-nav-items button {
+    font-size: 11px !important;
+    letter-spacing: 0.14em !important;
   }
 
   /* Video grid → single column */

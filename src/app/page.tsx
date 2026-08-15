@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useLayoutEffect, useCallback, useRef } from 'react';
 import {
   motion,
   useScroll,
@@ -40,10 +40,9 @@ const navItems = [
   { label: 'ABOUT', anchor: 'about', sub: [] },
 ];
 
-// Fixed width of the sticky sidebar nav — content sections are offset by this
-// amount (desktop only; mobile resets padding-left via globals.css) so the
-// solid black column never sits on top of page content.
-const SIDEBAR_WIDTH = 260;
+// Fallback used only for the first render before the sidebar nav measures
+// its own real width (see navSize / stickyNavRef in HomePage).
+const SIDEBAR_WIDTH_FALLBACK = 220;
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 
@@ -189,6 +188,26 @@ export default function HomePage() {
   const [isSticky, setIsSticky] = useState(false);
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
 
+  // Sidebar nav measures itself so content offset snugly matches its real
+  // rendered size — width on desktop (left column), height on mobile (top bar).
+  const stickyNavRef = useRef<HTMLElement>(null);
+  const [navSize, setNavSize] = useState({ width: SIDEBAR_WIDTH_FALLBACK, height: 0 });
+
+  useLayoutEffect(() => {
+    const el = stickyNavRef.current;
+    if (!el) return;
+    const update = () => setNavSize({ width: el.offsetWidth, height: el.offsetHeight });
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    window.addEventListener('resize', update);
+    return () => { ro.disconnect(); window.removeEventListener('resize', update); };
+  }, [isSticky]);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--mobile-nav-height', `${navSize.height}px`);
+  }, [navSize.height]);
+
   // Video modal
   const [activeVideo, setActiveVideo] = useState<VideoItem | null>(null);
   const [activePersonalVideo, setActivePersonalVideo] = useState<VideoItem | null>(null);
@@ -255,12 +274,14 @@ export default function HomePage() {
           {isSticky && (
             <motion.nav
               key="sticky"
+              ref={stickyNavRef}
+              className="sticky-sidebar-nav"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.35, ease: [0.215, 0.61, 0.355, 1] }}
               style={{
-                position: 'fixed', top: 0, left: 0, bottom: 0, width: `${SIDEBAR_WIDTH}px`, zIndex: 100,
+                position: 'fixed', top: 0, left: 0, bottom: 0, width: 'fit-content', maxWidth: 'min(80vw, 400px)', zIndex: 100,
                 display: 'flex', flexDirection: 'column',
                 background: '#000000', padding: '28px 36px 28px 32px',
                 boxShadow: '1px 0 0 rgba(255,255,255,0.06)',
@@ -279,71 +300,73 @@ export default function HomePage() {
                 </a>
               </motion.div>
 
-              {navItems.map((item) => (
-                <div
-                  key={item.label}
-                  onMouseEnter={() => item.sub.length > 0 && setHoveredNav(item.label)}
-                  onMouseLeave={() => setHoveredNav(null)}
-                  style={{ marginBottom: '10px' }}
-                >
-                  {/* Main label — layoutId enables FLIP from hero position */}
-                  <motion.button
-                    layoutId={`nav-label-${item.label}`}
-                    onClick={() => scrollTo(item.anchor)}
-                    style={{
-                      fontFamily: 'var(--font-heading)', fontSize: '14px', fontWeight: 400,
-                      letterSpacing: '0.18em', color: '#FFFFFF', textTransform: 'uppercase',
-                      cursor: 'none', background: 'none', border: 'none', padding: '4px 0',
-                      display: 'block', textAlign: 'left', whiteSpace: 'nowrap',
-                      opacity: hoveredNav && hoveredNav !== item.label ? 0.35 : 1,
-                      transition: 'opacity 0.2s ease',
-                    }}
+              <div className="sticky-nav-items" style={{ display: 'flex', flexDirection: 'column' }}>
+                {navItems.map((item) => (
+                  <div
+                    key={item.label}
+                    onMouseEnter={() => item.sub.length > 0 && setHoveredNav(item.label)}
+                    onMouseLeave={() => setHoveredNav(null)}
+                    style={{ marginBottom: '10px' }}
                   >
-                    {item.label}
-                  </motion.button>
+                    {/* Main label — layoutId enables FLIP from hero position */}
+                    <motion.button
+                      layoutId={`nav-label-${item.label}`}
+                      onClick={() => scrollTo(item.anchor)}
+                      style={{
+                        fontFamily: 'var(--font-heading)', fontSize: '14px', fontWeight: 400,
+                        letterSpacing: '0.18em', color: '#FFFFFF', textTransform: 'uppercase',
+                        cursor: 'none', background: 'none', border: 'none', padding: '4px 0',
+                        display: 'block', textAlign: 'left', whiteSpace: 'nowrap',
+                        opacity: hoveredNav && hoveredNav !== item.label ? 0.35 : 1,
+                        transition: 'opacity 0.2s ease',
+                      }}
+                    >
+                      {item.label}
+                    </motion.button>
 
-                  {/* Sub-items — in-flow, push siblings down on expand */}
-                  <AnimatePresence initial={false}>
-                    {hoveredNav === item.label && item.sub.length > 0 && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.38, ease: [0.4, 0, 0.2, 1] }}
-                        style={{ overflow: 'hidden' }}
-                      >
-                        <div style={{ paddingTop: '4px', paddingBottom: '4px', display: 'flex', flexDirection: 'column', gap: '0px' }}>
-                          {item.sub.map((sub, i) => (
-                            <motion.div
-                              key={sub.label}
-                              initial={{ opacity: 0, x: -6 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              exit={{ opacity: 0, x: -6 }}
-                              transition={{ duration: 0.22, delay: i * 0.05, ease: [0.215, 0.61, 0.355, 1] }}
-                            >
-                              <button
-                                onClick={() => scrollTo(sub.anchor)}
-                                style={{
-                                  fontFamily: 'var(--font-heading)', fontSize: '9px', fontWeight: 300,
-                                  letterSpacing: '0.16em', color: 'rgba(255,255,255,0.42)', textTransform: 'uppercase',
-                                  cursor: 'none', background: 'none', border: 'none',
-                                  padding: '4px 0', textAlign: 'left', whiteSpace: 'nowrap',
-                                  display: 'block', width: '100%',
-                                  transition: 'color 0.2s ease',
-                                }}
-                                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#fff'; }}
-                                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.42)'; }}
+                    {/* Sub-items — in-flow, push siblings down on expand */}
+                    <AnimatePresence initial={false}>
+                      {hoveredNav === item.label && item.sub.length > 0 && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.38, ease: [0.4, 0, 0.2, 1] }}
+                          style={{ overflow: 'hidden' }}
+                        >
+                          <div style={{ paddingTop: '4px', paddingBottom: '4px', display: 'flex', flexDirection: 'column', gap: '0px' }}>
+                            {item.sub.map((sub, i) => (
+                              <motion.div
+                                key={sub.label}
+                                initial={{ opacity: 0, x: -6 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -6 }}
+                                transition={{ duration: 0.22, delay: i * 0.05, ease: [0.215, 0.61, 0.355, 1] }}
                               >
-                                {sub.label}
-                              </button>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ))}
+                                <button
+                                  onClick={() => scrollTo(sub.anchor)}
+                                  style={{
+                                    fontFamily: 'var(--font-heading)', fontSize: '9px', fontWeight: 300,
+                                    letterSpacing: '0.16em', color: 'rgba(255,255,255,0.42)', textTransform: 'uppercase',
+                                    cursor: 'none', background: 'none', border: 'none',
+                                    padding: '4px 0', textAlign: 'left', whiteSpace: 'nowrap',
+                                    display: 'block', width: '100%',
+                                    transition: 'color 0.2s ease',
+                                  }}
+                                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#fff'; }}
+                                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.42)'; }}
+                                >
+                                  {sub.label}
+                                </button>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ))}
+              </div>
             </motion.nav>
           )}
         </AnimatePresence>
@@ -469,7 +492,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           VIDEO SECTION
       ═══════════════════════════════════════════════════════════ */}
-      <section id="video" className="content-section" style={{ padding: `128px 72px 96px ${SIDEBAR_WIDTH + 72}px`, background: '#000000' }}>
+      <section id="video" className="content-section" style={{ padding: `128px 72px 96px ${navSize.width + 72}px`, background: '#000000' }}>
         <SectionDivider label="VIDEO" />
 
         {/* Music Videos */}
@@ -494,7 +517,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           STILLS SECTION
       ═══════════════════════════════════════════════════════════ */}
-      <section id="stills" className="content-section" style={{ padding: `128px 72px 96px ${SIDEBAR_WIDTH + 72}px`, background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+      <section id="stills" className="content-section" style={{ padding: `128px 72px 96px ${navSize.width + 72}px`, background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
         <SectionDivider label="STILLS" />
 
         {/* Cover Art */}
@@ -513,7 +536,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           PERSONAL PROJECTS
       ═══════════════════════════════════════════════════════════ */}
-      <section id="personal-projects" className="content-section" style={{ padding: `128px 72px 96px ${SIDEBAR_WIDTH + 72}px`, background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+      <section id="personal-projects" className="content-section" style={{ padding: `128px 72px 96px ${navSize.width + 72}px`, background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
         <SubLabel>Personal Projects</SubLabel>
         {/* First 3 polaroids */}
         <motion.div
@@ -621,7 +644,7 @@ export default function HomePage() {
       {/* ═══════════════════════════════════════════════════════════
           ABOUT SECTION
       ═══════════════════════════════════════════════════════════ */}
-      <section id="about" className="content-section" style={{ padding: `128px 72px 128px ${SIDEBAR_WIDTH + 72}px`, background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+      <section id="about" className="content-section" style={{ padding: `128px 72px 128px ${navSize.width + 72}px`, background: '#000000', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
         <SubLabel>About</SubLabel>
 
         {/*
