@@ -134,6 +134,11 @@ a {
     columns: 1 !important;
   }
 
+  /* Cover Art (CSS grid, not masonry) → single column */
+  .stills-grid[data-layout="grid"] {
+    grid-template-columns: 1fr !important;
+  }
+
   /* Personal projects stills → single column */
   .pp-stills-grid {
     grid-template-columns: 1fr !important;
