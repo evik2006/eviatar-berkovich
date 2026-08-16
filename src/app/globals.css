@@ -119,6 +119,13 @@ a {
     letter-spacing: 0.14em !important;
   }
 
+  /* Work With Me CTA drops to its own row and centers within the bar */
+  .sticky-nav-items .nav-cta {
+    flex-basis: 100% !important;
+    width: fit-content !important;
+    margin: 8px auto 0 !important;
+  }
+
   /* Video grid → single column */
   .video-grid {
     grid-template-columns: 1fr !important;
