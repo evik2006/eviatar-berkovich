@@ -113,15 +113,9 @@ function StillsGrid({ items, onSelect, layout = 'masonry' }: { items: StillItem[
   const containerStyle = layout === 'grid'
     ? { display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }
     : { columns: '3', columnGap: '12px' };
-  const itemStyle = layout === 'grid'
-    ? { position: 'relative' as const, cursor: 'none', overflow: 'hidden', aspectRatio: '1 / 1', background: '#080808' }
+  const baseItemStyle = layout === 'grid'
+    ? { position: 'relative' as const, cursor: 'none', overflow: 'hidden', background: '#080808' }
     : { position: 'relative' as const, cursor: 'none', overflow: 'hidden', marginBottom: '12px', breakInside: 'avoid' as const, background: '#080808' };
-  // Grid layout (Cover Art) locks every tile to the same square footprint so
-  // mismatched source aspect ratios don't produce uneven row heights; masonry
-  // (Portraits) keeps each image's natural aspect ratio.
-  const imgStyle = layout === 'grid'
-    ? { width: '100%', height: '100%', display: 'block', objectFit: 'cover' as const, pointerEvents: 'none' as const }
-    : { width: '100%', display: 'block', objectFit: 'cover' as const, pointerEvents: 'none' as const };
   return (
     <motion.div
       initial="hidden"
@@ -143,10 +137,18 @@ function StillsGrid({ items, onSelect, layout = 'masonry' }: { items: StillItem[
           onClick={() => onSelect(i)}
           onMouseEnter={() => { (window as unknown as Record<string, unknown>).__cursorMediaHovered = true; window.dispatchEvent(new Event('cursor:enter')); }}
           onMouseLeave={() => { (window as unknown as Record<string, unknown>).__cursorMediaHovered = false; window.dispatchEvent(new Event('cursor:leave')); }}
-          style={itemStyle}
+          style={item.aspectRatio ? { ...baseItemStyle, aspectRatio: item.aspectRatio } : baseItemStyle}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={item.src} alt={item.title} loading="lazy" decoding="async" style={imgStyle} />
+          <img
+            src={item.src}
+            alt={item.title}
+            loading="lazy"
+            decoding="async"
+            style={item.aspectRatio
+              ? { width: '100%', height: '100%', display: 'block', objectFit: 'cover', pointerEvents: 'none' }
+              : { width: '100%', display: 'block', objectFit: 'cover', pointerEvents: 'none' }}
+          />
           <motion.div
             variants={{ hovered: { opacity: 1 } }} initial={{ opacity: 0 }} transition={{ duration: 0.2 }}
             style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '20px 12px 12px', background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)' }}

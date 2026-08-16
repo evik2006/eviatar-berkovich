@@ -17,6 +17,10 @@ export type StillItem = {
   src: string;
   title: string;
   subtitle: string;
+  /** Optional CSS aspect-ratio override (e.g. "2640 / 3589") to force a tile
+   * to a specific shape instead of its natural size — used to make a row of
+   * mismatched source images render at a uniform height. */
+  aspectRatio?: string;
 };
 
 export type PortraitProject = {
@@ -289,9 +293,9 @@ export const socialContent: VideoItem[] = [
 // ─── Cover Art ────────────────────────────────────────────────────────────────
 
 export const coverArt: StillItem[] = [
-  { title: "ESHKOL NEVO - THE LONGEST NIGHT", subtitle: '2026', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/eshkol%20nevo/DSC06004.jpg' },
-  { title: "ESHKOL NEVO - THE LONGEST NIGHT", subtitle: '2026', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/eshkol%20nevo/The_longest_night_Final.jpg' },
-  { title: "ESHKOL NEVO - THE LONGEST NIGHT", subtitle: '2026', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/eshkol%20nevo/DSC05959.jpg' },
+  { title: "ESHKOL NEVO - THE LONGEST NIGHT", subtitle: '2026', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/eshkol%20nevo/DSC06004.jpg', aspectRatio: '2640 / 3589' },
+  { title: "ESHKOL NEVO - THE LONGEST NIGHT", subtitle: '2026', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/eshkol%20nevo/The_longest_night_Final.jpg', aspectRatio: '2640 / 3589' },
+  { title: "ESHKOL NEVO - THE LONGEST NIGHT", subtitle: '2026', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/eshkol%20nevo/DSC05959.jpg', aspectRatio: '2640 / 3589' },
   { title: "OLLIE DANON - 'HASHEVER HASURI-AFRIKAI'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/OLLIE%20DANON/IMG_6205.PNG' },
   { title: "OLLIE DANON - 'SHIRIMEAETMOL'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/OLLIE%20DANON/IMG_6201.JPG' },
   { title: "OLLIE DANON - 'MEHORATI'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/OLLIE%20DANON/IMG_6203.JPG' },
