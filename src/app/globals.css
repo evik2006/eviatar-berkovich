@@ -42,7 +42,9 @@ a {
 
 /* ── Mobile layout fixes (≤ 767px) ── */
 @media (max-width: 767px) {
-  /* Hero nav: single row pinned below the animation */
+  /* Hero nav: pinned below the animation, wraps to a 2nd row if needed
+     (5 items — VIDEO / STILLS / PERSONAL PROJECTS / ABOUT / WORK WITH ME —
+     no longer reliably fit one line on narrow screens) */
   .hero-nav {
     position: absolute !important;
     bottom: 56px !important;
@@ -50,8 +52,9 @@ a {
     right: 0 !important;
     width: 100% !important;
     justify-content: center !important;
-    gap: 14px !important;
-    flex-wrap: nowrap !important;
+    column-gap: 14px !important;
+    row-gap: 10px !important;
+    flex-wrap: wrap !important;
     padding: 0 16px !important;
   }
 
@@ -60,10 +63,15 @@ a {
     display: none !important;
   }
 
-  /* Shrink labels just enough for all four to fit one line */
+  /* Shrink labels to keep rows compact */
   .hero-nav button {
     font-size: 9px !important;
     letter-spacing: 0.12em !important;
+  }
+
+  /* CTA buttons (Work With Me) get a smaller border-box footprint on mobile */
+  .nav-cta {
+    padding: 6px 10px !important;
   }
 
   /* Reduce large horizontal section padding; clear the top nav bar

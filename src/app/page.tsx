@@ -12,6 +12,7 @@ import {
 import Link from 'next/link';
 import VideoModal from '@/components/VideoModal';
 import ImageLightbox from '@/components/ImageLightbox';
+import WorkWithMeModal from '@/components/WorkWithMeModal';
 import {
   type VideoItem,
   type StillItem,
@@ -219,6 +220,9 @@ export default function HomePage() {
   const [activeVideo, setActiveVideo] = useState<VideoItem | null>(null);
   const [activePersonalVideo, setActivePersonalVideo] = useState<VideoItem | null>(null);
 
+  // Work With Me modal
+  const [workWithMeOpen, setWorkWithMeOpen] = useState(false);
+
   // Image lightbox
   const [lbImages, setLbImages] = useState<StillItem[]>([]);
   const [lbIndex, setLbIndex] = useState(0);
@@ -373,6 +377,23 @@ export default function HomePage() {
                     </AnimatePresence>
                   </div>
                 ))}
+
+                {/* Work With Me CTA */}
+                <button
+                  className="nav-cta"
+                  onClick={() => setWorkWithMeOpen(true)}
+                  style={{
+                    fontFamily: 'var(--font-heading)', fontSize: '13px', fontWeight: 400,
+                    letterSpacing: '0.16em', color: '#FFFFFF', textTransform: 'uppercase',
+                    cursor: 'none', background: 'none', border: '1px solid rgba(255,255,255,0.35)',
+                    padding: '9px 16px', display: 'inline-block', textAlign: 'center', whiteSpace: 'nowrap',
+                    marginTop: '6px', transition: 'background 0.2s ease, border-color 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.08)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.7)'; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'none'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.35)'; }}
+                >
+                  Work With Me
+                </button>
               </div>
             </motion.nav>
           )}
@@ -475,6 +496,23 @@ export default function HomePage() {
                     </div>
                   );
                 })}
+
+                {/* Work With Me CTA */}
+                <button
+                  className="nav-cta"
+                  onClick={() => setWorkWithMeOpen(true)}
+                  style={{
+                    fontFamily: 'var(--font-heading)', fontSize: '11px', fontWeight: 400,
+                    letterSpacing: '0.16em', color: '#FFFFFF', textTransform: 'uppercase',
+                    cursor: 'none', background: 'none', border: '1px solid rgba(255,255,255,0.35)',
+                    padding: '9px 16px', whiteSpace: 'nowrap',
+                    transition: 'background 0.2s ease, border-color 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.08)'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.7)'; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'none'; (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.35)'; }}
+                >
+                  Work With Me
+                </button>
               </motion.nav>
             )}
           </AnimatePresence>
@@ -752,6 +790,12 @@ export default function HomePage() {
             onClose={() => setLbOpen(false)}
             onNavigate={setLbIndex}
           />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {workWithMeOpen && (
+          <WorkWithMeModal onClose={() => setWorkWithMeOpen(false)} />
         )}
       </AnimatePresence>
     </main>
