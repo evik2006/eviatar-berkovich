@@ -289,6 +289,9 @@ export const socialContent: VideoItem[] = [
 // ─── Cover Art ────────────────────────────────────────────────────────────────
 
 export const coverArt: StillItem[] = [
+  { title: "ESHKOL NEVO - THE LONGEST NIGHT", subtitle: '2026', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/eshkol%20nevo/DSC06004.jpg' },
+  { title: "ESHKOL NEVO - THE LONGEST NIGHT", subtitle: '2026', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/eshkol%20nevo/The_longest_night_Final.jpg' },
+  { title: "ESHKOL NEVO - THE LONGEST NIGHT", subtitle: '2026', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/eshkol%20nevo/DSC05959.jpg' },
   { title: "OLLIE DANON - 'HASHEVER HASURI-AFRIKAI'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/OLLIE%20DANON/IMG_6205.PNG' },
   { title: "OLLIE DANON - 'SHIRIMEAETMOL'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/OLLIE%20DANON/IMG_6201.JPG' },
   { title: "OLLIE DANON - 'MEHORATI'", subtitle: '2025', src: 'https://Eviatarstills2006.b-cdn.net/COVER%20ART/OLLIE%20DANON/IMG_6203.JPG' },

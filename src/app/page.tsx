@@ -127,7 +127,7 @@ function StillsGrid({ items, onSelect, layout = 'masonry' }: { items: StillItem[
     >
       {items.map((item, i) => (
         <motion.div
-          key={item.title}
+          key={item.src}
           variants={{
             hidden: { opacity: 0, y: 28 },
             visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.215, 0.61, 0.355, 1] } },
