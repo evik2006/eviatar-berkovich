@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import './globals.css';
 import CustomCursor from '@/components/CustomCursor';
-import SocialIcons from '@/components/SocialIcons';
 
 export const metadata: Metadata = {
   title: 'Eviatar Berkovich — Director & Cinematographer',
@@ -29,7 +28,6 @@ export default function RootLayout({
       `}</Script>
       <body style={{ background: '#000000', color: '#FFFFFF', overflowX: 'hidden' }}>
         <CustomCursor />
-        <SocialIcons />
 {children}
       </body>
     </html>
