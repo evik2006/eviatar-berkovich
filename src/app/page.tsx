@@ -720,11 +720,13 @@ export default function HomePage() {
             <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '48px', fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 1.05, color: '#FFFFFF', marginBottom: '6px' }}>
               EVIATAR<br />BERKOVICH
             </h1>
-            <p lang="he" dir="rtl" style={{ fontFamily: 'var(--font-body)', fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.4)', marginBottom: '10px' }}>
-              אביתר ברקוביץ
-            </p>
-            <p style={{ fontFamily: 'var(--font-heading)', fontSize: '10px', fontWeight: 300, letterSpacing: '0.3em', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', marginBottom: '44px' }}>
-              Director &amp; Cinematographer
+            <p style={{ display: 'flex', alignItems: 'baseline', flexWrap: 'wrap', gap: '10px', marginBottom: '44px' }}>
+              <span style={{ fontFamily: 'var(--font-heading)', fontSize: '10px', fontWeight: 300, letterSpacing: '0.3em', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase' }}>
+                Director &amp; Cinematographer
+              </span>
+              <span lang="he" dir="rtl" style={{ fontFamily: 'var(--font-body)', fontSize: '12px', fontWeight: 300, color: 'rgba(255,255,255,0.3)' }}>
+                אביתר ברקוביץ
+              </span>
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
