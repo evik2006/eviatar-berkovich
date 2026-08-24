@@ -717,9 +717,12 @@ export default function HomePage() {
             transition={{ duration: 0.75, ease: [0.215, 0.61, 0.355, 1] }}
             style={{ gridColumn: 1, gridRow: 1, alignSelf: 'start' }}
           >
-            <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: '48px', fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 1.05, color: '#FFFFFF', marginBottom: '6px' }}>
+            <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '48px', fontWeight: 300, letterSpacing: '-0.01em', lineHeight: 1.05, color: '#FFFFFF', marginBottom: '6px' }}>
               EVIATAR<br />BERKOVICH
-            </h2>
+            </h1>
+            <p lang="he" dir="rtl" style={{ fontFamily: 'var(--font-body)', fontSize: '15px', fontWeight: 300, color: 'rgba(255,255,255,0.4)', marginBottom: '10px' }}>
+              אביתר ברקוביץ
+            </p>
             <p style={{ fontFamily: 'var(--font-heading)', fontSize: '10px', fontWeight: 300, letterSpacing: '0.3em', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', marginBottom: '44px' }}>
               Director &amp; Cinematographer
             </p>
@@ -744,7 +747,7 @@ export default function HomePage() {
             style={{ gridColumn: 2, gridRow: '1 / 3', position: 'relative', overflow: 'hidden', alignSelf: 'start' }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="https://Eviatarstills2006.b-cdn.net/about/DSC04516.jpg" alt="Eviatar Berkovich" loading="lazy" decoding="async" style={{ width: '100%', display: 'block', filter: 'contrast(1.05) brightness(0.9)' }} />
+            <img src="https://Eviatarstills2006.b-cdn.net/about/DSC04516.jpg" alt="Eviatar Berkovich (אביתר ברקוביץ) — Director & Cinematographer" loading="lazy" decoding="async" style={{ width: '100%', display: 'block', filter: 'contrast(1.05) brightness(0.9)' }} />
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.3) 0%, transparent 40%)', pointerEvents: 'none' }} />
           </motion.div>
 
